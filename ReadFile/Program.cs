@@ -36,6 +36,8 @@ namespace ReadFile
 
             if (!path.EndsWith("\\")) { path += "\\"; }
 
+            
+
             Console.WriteLine("Path: " + path);
            
             bool booSkipping = false;
@@ -47,7 +49,10 @@ namespace ReadFile
                 Console.WriteLine(file);
 
                 if (file == $"{path}ExportLog.txt") { continue; }
-                
+                if (file.Contains("\\Queries\\")) 
+                { 
+                    continue; 
+                }
 
                 var contents = File.ReadAllText(file);
 
@@ -63,14 +68,14 @@ namespace ReadFile
                     {
 
                     }
-                    else if (line.IndexOf("Filter =") >= 0)
+                    else if (line.IndexOf(" Filter =") >= 0)
                     {
 
                     }
-                    else if (line.IndexOf("TabIndex =") >= 0)
-                    {
+                    //else if (line.IndexOf("TabIndex =") >= 0)
+                    //{
 
-                    }
+                    //}
                     else if (line.IndexOf("Checksum =") >= 0)
                     {
 
@@ -79,22 +84,22 @@ namespace ReadFile
                     {
 
                     }
-                    else if (line.IndexOf("Left =") >= 0)
-                    {
+                    //else if (line.IndexOf("Left =") >= 0)
+                    //{
 
-                    }
-                    else if (line.IndexOf("Right =") >= 0)
-                    {
+                    //}
+                    //else if (line.IndexOf("Right =") >= 0)
+                    //{
 
-                    }
-                    else if (line.IndexOf("Top =") >= 0)
-                    {
+                    //}
+                    //else if (line.IndexOf("Top =") >= 0)
+                    //{
 
-                    }
-                    else if(line.IndexOf("Bottom =") >= 0)
-                    {
+                    //}
+                    //else if(line.IndexOf("Bottom =") >= 0)
+                    //{
 
-                    }
+                    //}
                     else if (booSkipping ) 
                     {
                         if (line.IndexOf(end_tag) >= 0)
