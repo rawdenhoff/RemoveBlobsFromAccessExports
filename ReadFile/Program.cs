@@ -28,7 +28,16 @@ namespace ReadFile
             //    Console.WriteLine(fileName);
             //}
 
-            string path = @"C:\Temp\Test Export\After Blobs removed\";
+            //string path = @"C:\Temp\Test Export\After Blobs removed\";
+
+            string path;
+
+            path = Environment.GetCommandLineArgs()[1];
+
+            if (!path.EndsWith("\\")) { path += "\\"; }
+
+            Console.WriteLine("Path: " + path);
+           
             bool booSkipping = false;
             string end_tag = string.Empty;
             StringBuilder sb;
@@ -36,6 +45,9 @@ namespace ReadFile
             foreach (var file in Directory.GetFiles(path, "*.txt", SearchOption.AllDirectories))
             {
                 Console.WriteLine(file);
+
+                if (file == $"{path}ExportLog.txt") { continue; }
+                
 
                 var contents = File.ReadAllText(file);
 
@@ -137,14 +149,11 @@ namespace ReadFile
 
                 }
 
-
-                if (!File.Exists(path))
+                using (StreamWriter sw = File.CreateText(file))
                 {
-                    using (StreamWriter sw = File.CreateText(file))
-                    {
-                        sw.Write( sb.ToString());
-                    }
+                    sw.Write( sb.ToString());
                 }
+
             }
         }
     }
